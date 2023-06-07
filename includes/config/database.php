@@ -1,7 +1,7 @@
 <?php
 
 function conectarDB(){
-    $db = mysqli_connect('localhost', 'root', 'root', 'bienes_raices');
+    $db = mysqli_connect('localhost', 'root', '', 'bienesraices_crud');
 
     if($db){
         echo 'se conecto';
