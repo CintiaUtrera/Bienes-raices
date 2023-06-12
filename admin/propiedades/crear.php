@@ -2,22 +2,23 @@
         // Base de datos
     require '../../includes/config/database.php';
     $db = conectarDB();
+    
 
     //Arreglo con mensajes de errores
     $errores =  [];
 
     //Ejecutar el codigo despues  de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
+        //echo "<pre>";
+        //var_dump($_POST);
+        //echo "</pre>";
 
-        $titulo= $_POST['titulo'];
-        $precio= $_POST['precio'];
-        $descripcion= $_POST['descripcion'];
-        $habitaciones= $_POST['habitaciones'];
-        $wc= $_POST['wc'];
-        $estacionamiento= $_POST['estacionamiento'];
+        $titulo = $_POST['titulo'];
+        $precio = $_POST['precio'];
+        $descripcion = $_POST['descripcion'];
+        $habitaciones = $_POST['habitaciones'];
+        $wc = $_POST['wc'];
+        $estacionamiento = $_POST['estacionamiento'];
         $vendedores_id= $_POST['vendedor'];
 
         if(!$titulo){
@@ -44,15 +45,25 @@
             $errores[]= "El número de lugares de Estacionamiento es obligatorio";
         }
 
+        if(!$vendedoresId){
+            $errores[]= "Elige un vendedor";
+        }
+
+
         // INSERTAR EN LA BASE DE DATOS
-        $query= "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id')";
+        $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) 
+        VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id')";
         //echo $query;
 
         $resultado = mysqli_query($db, $query);
         if ($resultado){
             echo "Insertado Correctamente";
         }
+
     }
+
+        
+
 
     require '../../includes/funciones.php';
     incluirTemplate('header');
@@ -61,9 +72,9 @@
     <main class="contenedor seccion">
         <h1>Crear</h1>
 
-        <a href="/admin" class="boton boton-verde">volver</a>
+        <a href="/bienesraices/admin/index.php" class="boton boton-verde">volver</a>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
+        <form class="formulario" method="POST" action="crear.php">
             <fieldset>
                 <legend>Información General</legend>
                 <label for="titulo">Titulo:</label>
@@ -103,7 +114,7 @@
 
             </fieldset>
 
-            <input type="submit" value="Crear Propiedad" class="boton boton-verde"
+            <input type="submit" value="Crear Propiedad" class="boton boton-verde">
         </form>
     </main>
 
