@@ -34,23 +34,24 @@
         }
 
         if(!$habitaciones){
-            $errores[]= "El número de habitaciones es obligatorio";
+            $errores[]= "El Número de habitaciones es obligatorio";
         }
 
         if(!$wc){
-            $errores[]= "El número de baños es obligatorio";
+            $errores[]= "El Número de baños es obligatorio";
         }
 
         if(!$estacionamiento){
-            $errores[]= "El número de lugares de Estacionamiento es obligatorio";
+            $errores[]= "El Número de lugares de Estacionamiento es obligatorio";
         }
 
-        if(!$vendedoresId){
+        if(!$vendedores_id){
             $errores[]= "Elige un vendedor";
         }
 
-
-        // INSERTAR EN LA BASE DE DATOS
+        //Revisar que el array de errores este vacio
+        if(empty($errores)){
+            // INSERTAR EN LA BASE DE DATOS
         $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) 
         VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id')";
         //echo $query;
@@ -58,6 +59,7 @@
         $resultado = mysqli_query($db, $query);
         if ($resultado){
             echo "Insertado Correctamente";
+            }
         }
 
     }
@@ -73,6 +75,14 @@
         <h1>Crear</h1>
 
         <a href="/bienesraices/admin/index.php" class="boton boton-verde">volver</a>
+
+        <?php foreach($errores as $error): ?>
+            <div class="alerta error">
+                <?php echo $error; ?>
+            </div>
+        
+        <?php endforeach; ?>
+
 
         <form class="formulario" method="POST" action="crear.php">
             <fieldset>
@@ -107,8 +117,9 @@
             <fieldset>
                 <legend>Vendedor</legend>
             <select name="vendedor">
+                <option value="">-- Seleccione --</option>
                 <option value="1">Cintia Utrera</option>
-                <option value="2">Emanuel Campos</option>
+                <option value="2">Daiana Utrera</option>
                 
             </select>
 
