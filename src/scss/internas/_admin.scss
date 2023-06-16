@@ -3,6 +3,8 @@
     text-align: center;
     color: $blanco;
     font-weight: bold;
+    text-transform: uppercase;
+    margin: 1rem 0;
 
     &.error{
         background-color: $rojo;

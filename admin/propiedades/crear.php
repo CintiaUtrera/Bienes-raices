@@ -7,6 +7,15 @@
     //Arreglo con mensajes de errores
     $errores =  [];
 
+        $titulo = '';
+        $precio = '';
+        $descripcion = '';
+        $habitaciones = '';
+        $wc = '';
+        $estacionamiento = '';
+        $vendedores_id= '';
+
+
     //Ejecutar el codigo despues  de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         //echo "<pre>";
@@ -30,7 +39,7 @@
         }
 
         if( strlen($descripcion) < 50 ){
-            $errores[]= "La descripción es obligatoria y debe tener al menos 50 caracteres";
+            $errores[]= "La Descripción es obligatoria y debe tener al menos 50 caracteres";
         }
 
         if(!$habitaciones){
@@ -88,16 +97,16 @@
             <fieldset>
                 <legend>Información General</legend>
                 <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Titulo Propiedad">
+                <input type="text" id="titulo" name="titulo" value="<?php echo $titulo; ?>" placeholder="Titulo Propiedad">
 
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" placeholder="Precio">
+                <input type="number" id="precio" name="precio" value="<?php echo $precio; ?>" placeholder="Precio">
 
                 <label for="imagen">Imagen:</label>
                 <input type="file" id="imagen"  accept="image/jpeg, image/png">
             
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion"></textarea>
+                <textarea id="descripcion" name="descripcion" ><?php echo $descripcion; ?></textarea>
 
             </fieldset>
 
@@ -105,13 +114,13 @@
                 <legend>Información Propiedad</legend>
 
                 <label for="habitaciones">Habitaciones</label>
-                <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="1" max="9">
+                <input type="number" id="habitaciones" name="habitaciones" value="<?php echo $habitaciones; ?>" placeholder="Ej: 3" min="1" max="9">
             
                 <label for="wc">Baños:</label>
-                <input type="number" id="wc" name="wc" placeholder="Ej: 2" min="1" max="6">
+                <input type="number" id="wc" name="wc" value="<?php echo $wc; ?>" placeholder="Ej: 2" min="1" max="6">
 
                 <label for="estacionamiento">Estacionamiento</label>
-                <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej: 1" min="1" max="5">
+                <input type="number" id="estacionamiento" name="estacionamiento" value="<?php echo $estacionamiento; ?>" placeholder="Ej: 1" min="1" max="5">
             </fieldset>
 
             <fieldset>
