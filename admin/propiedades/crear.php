@@ -22,17 +22,18 @@
 
     //Ejecutar el codigo despues  de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
         //echo "<pre>";
         //var_dump($_POST);
         //echo "</pre>";
 
-        $titulo = $_POST['titulo'];
-        $precio = $_POST['precio'];
-        $descripcion = $_POST['descripcion'];
-        $habitaciones = $_POST['habitaciones'];
-        $wc = $_POST['wc'];
-        $estacionamiento = $_POST['estacionamiento'];
-        $vendedores_id= $_POST['vendedor'];
+        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
+        $precio = mysqli_real_escape_string($db, $_POST['precio']);
+        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+        $wc = mysqli_real_escape_string($db, $_POST['wc']);
+        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+        $vendedores_id= mysqli_real_escape_string($db, $_POST['vendedor']);
         $creado= date('Y/m/d');
 
         if(!$titulo){
