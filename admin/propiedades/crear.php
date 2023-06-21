@@ -79,7 +79,7 @@
         }
 
         // Validar por tamaño  de Imagen 
-        $medida= 1000 * 100;
+        $medida= 1000 * 1000;
 
         if($imagen['size'] > $medida){  
             $errores[] = 'La Imagen es muy pesada'; 
@@ -88,9 +88,26 @@
 
         //Revisar que el array de errores este vacio
         if(empty($errores)){
+
+            //SUBIDA DE ARCHIVOS
+
+            //Crear carpeta
+            $carpetaImagenes = '../../imagenes/';
+            if(!is_dir($carpetaImagenes)){
+                mkdir($carpetaImagenes);
+            }
+
+            //Generar un nombre único
+            $nombreImagen = md5( uniqid(rand(), true)) . ".jpg";
+
+            //Subir la imagen
+            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+            
+            
+
             // INSERTAR EN LA BASE DE DATOS
-        $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-        VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";
+        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
+        VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";
         //echo $query;
 
         $resultado = mysqli_query($db, $query);
