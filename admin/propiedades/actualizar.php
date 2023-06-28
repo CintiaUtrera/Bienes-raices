@@ -91,9 +91,6 @@
             $errores[]= "Elige un vendedor";
         }
 
-        if(!$imagen['name'] || $imagen['error']){                   
-            $errores[]= "La Imagen es Obligatoria";
-        }
 
         // Validar por tamaño  de Imagen 
         $medida= 1000 * 1000;
@@ -123,15 +120,14 @@
             
 
             // INSERTAR EN LA BASE DE DATOS
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-        VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";
-        //echo $query;
+        $query = "UPDATE propiedades SET titulo = '${titulo}', precio = '${precio}', descripcion = '${descripcion}', habitaciones = ${habitaciones}, wc = ${wc},
+        estacionamiento = ${estacionamiento}, vendedores_id = ${vendedores_id} WHERE id = {id} ";      
 
         $resultado = mysqli_query($db, $query);
 
         if ($resultado){
             //Redireccionar al Usuario
-            header("Location: ../index.php?resultado=1");
+            header("Location: ../index.php?resultado=2");
             }
         }
 
@@ -157,7 +153,7 @@
         <?php endforeach; ?>
 
 
-        <form class="formulario" method="POST" action="crear.php" enctype="multipart/form-data">
+        <form class="formulario" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General</legend>
                 <label for="titulo">Titulo:</label>
