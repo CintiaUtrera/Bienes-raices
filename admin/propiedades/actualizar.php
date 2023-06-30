@@ -13,7 +13,7 @@
     $db = conectarDB();
     
     //Obtener los datos de una propiedad
-    $consulta = "SELECT * FROM propiedades WHERE id = ${id}";
+    $consulta = "SELECT * FROM propiedades WHERE id = {$id}";
     $resultado = mysqli_query($db, $consulta);
     $propiedad = mysqli_fetch_assoc($resultado);
 
@@ -106,28 +106,30 @@
             //SUBIDA DE ARCHIVOS
 
             //Crear carpeta
-            $carpetaImagenes = '../../imagenes/';
-            if(!is_dir($carpetaImagenes)){
-                mkdir($carpetaImagenes);
-            }
+            //$carpetaImagenes = '../../imagenes/';
+            //if(!is_dir($carpetaImagenes)){
+              //  mkdir($carpetaImagenes);
+            //}
 
             //Generar un nombre único
-            $nombreImagen = md5( uniqid(rand(), true)) . ".jpg";
+            //$nombreImagen = md5( uniqid(rand(), true)) . ".jpg";
 
             //Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+            //move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen); 
             
             
 
             // INSERTAR EN LA BASE DE DATOS
-        $query = "UPDATE propiedades SET titulo = '${titulo}', precio = '${precio}', descripcion = '${descripcion}', habitaciones = ${habitaciones}, wc = ${wc},
-        estacionamiento = ${estacionamiento}, vendedores_id = ${vendedores_id} WHERE id = {id} ";      
+            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";     
 
-        $resultado = mysqli_query($db, $query);
+            //echo $query;
+             
+
+            $resultado = mysqli_query($db, $query);
 
         if ($resultado){
             //Redireccionar al Usuario
-            header("Location: ../index.php?resultado=2");
+            header('Location: ../index.php?resultado=2');
             }
         }
 

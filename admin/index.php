@@ -19,9 +19,9 @@
 
     <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
-        <?php if($resultado == 1) : ?>
+        <?php if( intval ( $resultado ) === 1) : ?>
             <p class="alerta exito">Anuncio creado correctamente</p>
-            <?php elseif($resultado == 2): ?>
+            <?php elseif( intval ( $resultado ) === 2): ?>
             <p class="alerta exito">Anuncio Actualizado correctamente</p>  
         <?php endif; ?>
 
