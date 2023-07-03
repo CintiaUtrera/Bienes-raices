@@ -149,7 +149,7 @@
     <main class="contenedor seccion">
         <h1>Actualizar Propiedad</h1>
 
-        <a href="/bienesraices/admin/index.php" class="boton boton-verde">volver</a>
+        <a href="bienesraices/index.php" class="boton boton-verde">volver</a>
 
         <?php foreach($errores as $error): ?>
             <div class="alerta error">

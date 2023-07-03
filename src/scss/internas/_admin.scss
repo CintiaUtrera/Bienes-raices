@@ -1,5 +1,5 @@
 .alerta{
-    padding: 5rem;
+    padding: 0.5rem;
     text-align: center;
     color: $blanco;
     font-weight: bold;
@@ -19,18 +19,20 @@ table.propiedades{
     margin-top: 4rem;
     width: 100%;
     border-spacing: 0;
+    text-align: center;
 
     thead{
         background-color: $verde;
 
         th{
             color: $blanco;
-            padding: 2rem;
+            padding: 1rem;
         }
     }
 
     .imagen-tabla{
         width: 10rem;
+        
     }
 
 }
