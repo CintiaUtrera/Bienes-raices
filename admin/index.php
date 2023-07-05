@@ -52,7 +52,7 @@
             <?php elseif( intval ( $resultado ) === 2): ?>
             <p class="alerta exito">Anuncio Actualizado correctamente</p> 
             <?php elseif( intval ( $resultado ) === 3) : ?>
-                <p class="alerta error">Anuncio Eliminado correctamente</p> 
+                <p class="alerta exito">Anuncio Eliminado correctamente</p> 
         <?php endif; ?>
 
         <a href="../admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
