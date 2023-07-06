@@ -28,9 +28,9 @@
                         <a href="/bienesraices/contacto.php">Contacto</a>
                     </nav>
                 </div>
-   
-                
             </div> <!--.barra-->
+            
+
 
             <?php if ($inicio){ ?>
                 <h1>Venta de Casas y Departamentos  Exclusivos de Lujo</h1>
