@@ -17,30 +17,29 @@
     <?php while($propiedad = mysqli_fetch_assoc($resultado)): ?>
             <div class="anuncio">
                 <picture>
-                    <img loading="lazy" src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="anuncio">
-               
+                    <img loading="lazy" src="/bienesraices/imagenes/<?php echo $propiedad['imagen']; ?>" alt="anuncio">
 
                 <div class="contenido-anuncio">
-                    <h3>Casa con alberca</h3>
-                    <p>Casa en el lago con excelente vista, acabados de lujo a un excelente precio</p>
-                    <p class="precio">$3,0000,000</p>
+                    <h3><?php echo $propiedad['titulo']; ?></h3>
+                    <p><?php echo $propiedad['descripcion']; ?></p>
+                    <p class="precio"><?php echo $propiedad['precio']; ?></p>
 
                     <ul class="iconos-caracteristicas">
                         <li>
                             <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
-                            <p>3</p>
+                            <p><?php echo $propiedad['wc']; ?></p>
                         </li>
                         <li>
                             <img class="icono" loading="lazy" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento">
-                            <p>3</p>
+                            <p><?php echo $propiedad['estacionamiento']; ?></p>
                         </li>
                         <li>
                             <img class="icono" loading="lazy" src="build/img/icono_dormitorio.svg" alt="icono habitaciones">
-                            <p>4</p>
+                            <p><?php echo $propiedad['habitaciones']; ?></p>
                         </li>
                     </ul>
 
-                    <a href="anuncio.php" class="boton-amarillo-block">
+                    <a href="anuncio.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">
                         Ver Propiedad
                     </a>
                 </div><!--.contenido-anuncio-->
@@ -50,5 +49,5 @@
 
 <?php
 // Cerrar la conexion
-
+    mysqli_close($db);
 ?>
