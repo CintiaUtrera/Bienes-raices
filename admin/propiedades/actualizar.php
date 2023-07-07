@@ -149,7 +149,7 @@
     <main class="contenedor seccion">
         <h1>Actualizar Propiedad</h1>
 
-        <a href="bienesraices/index.php" class="boton boton-verde">volver</a>
+        <a href="/bienesraices/admin/index.php" class="boton boton-verde">volver</a>
 
         <?php foreach($errores as $error): ?>
             <div class="alerta error">
@@ -171,7 +171,7 @@
                 <label for="imagen">Imagen:</label>
                 <input type="file" id="imagen"  accept="image/jpeg, image/png" name="imagen">
 
-                <img src="/imagenes/<?php echo $imagenPropiedad;  ?>" class="imagen-small">
+                <img src="/bienesraices/imagenes/<?php echo $imagenPropiedad;  ?>" class="imagen-small">
             
                 <label for="descripcion">Descripción:</label>
                 <textarea id="descripcion" name="descripcion" ><?php echo $descripcion; ?></textarea>

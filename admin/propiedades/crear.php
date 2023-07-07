@@ -150,7 +150,7 @@
                 <input type="number" id="precio" name="precio" value="<?php echo $precio; ?>" placeholder="Precio">
 
                 <label for="imagen">Imagen:</label>
-                <input type="file" id="imagen"  accept="image/jpeg, image/png" name="imagen">
+                <input type="file" id="imagen"  accept="image/jpg, image/png" name="imagen">
             
                 <label for="descripcion">Descripción:</label>
                 <textarea id="descripcion" name="descripcion" ><?php echo $descripcion; ?></textarea>

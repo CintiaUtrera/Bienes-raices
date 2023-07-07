@@ -72,7 +72,7 @@
                 <tr>
                     <td><?php echo $propiedad['id']; ?></td>
                     <td><?php echo $propiedad['titulo']; ?></td>
-                    <td> <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" class="imagen-tabla"> </td>
+                    <td class="imagen-tabla"> <img src="/bienesraices/imagenes/<?php echo $propiedad['imagen']; ?>" > </td>
                     <td>$ <?php echo $propiedad['precio']; ?></td>
                     <td>
                         <form method="POST" class="w-100" >
