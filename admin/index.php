@@ -75,7 +75,7 @@
                     <td class="imagen-tabla"> <img src="/bienesraices/imagenes/<?php echo $propiedad['imagen']; ?>" > </td>
                     <td>$ <?php echo $propiedad['precio']; ?></td>
                     <td>
-                        <form method="POST" class="w-100" >
+                        <form method="POST">
                             <input type="hidden" name="id" value="<?php echo $propiedad['id']; ?>" >
                             <input type="submit" class="boton-rojo-block" value="Eliminar" >
                         </form>
