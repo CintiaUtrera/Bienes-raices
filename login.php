@@ -35,6 +35,13 @@
 
                 if($auth){
                     // el usuario esta autenticado
+                    session_start();
+                    //llenar el arreglo de la sesion
+                    $_SESSION['usuario'] = $usuario['email'];
+                    $_SESSION['login'] = true;
+
+                    header('Location: /bienesraices/admin/index.php'); 
+
                 }else {
                     $errores[] = "El password es incorrecto";
                 }
