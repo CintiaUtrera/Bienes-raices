@@ -8,7 +8,7 @@
     }
 
         // Incluir la conexion 
-        require 'includes/config/database.php';
+        require 'includes/app.php';
         $db = conectarDB();
 
         //Consultar 
@@ -24,7 +24,7 @@
 
 
 
-    require 'includes/funciones.php';
+    
     incluirTemplate('header');
 ?>
 

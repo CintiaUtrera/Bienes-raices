@@ -1,7 +1,7 @@
 <?php 
 
     //conectar db
-    require 'includes/config/database.php';
+    require 'includes/app.php';
     $db = conectarDB();
 
     // Autenticar el Usuario
@@ -52,7 +52,7 @@
     }
 
 
-require 'includes/funciones.php';
+
 incluirTemplate('header');
 ?>
 
