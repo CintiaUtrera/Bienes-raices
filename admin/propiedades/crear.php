@@ -2,19 +2,10 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
-
-    $propiedad = new Propiedad;
-
-    $auth = estaAutenticado();
     
+    estaAutenticado();
     
-    if(!$auth){
-        header('Location: /');
-    }
 
-
-        // Base de datos
-    require '../../includes/config/database.php';
     $db = conectarDB();
     
     //Consultar para obtener los vendedores 
