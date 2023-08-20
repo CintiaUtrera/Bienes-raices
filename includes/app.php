@@ -10,5 +10,7 @@ $db = conectarDB();
 
 use App\Propiedad;
 
-Propiedad::setDB()
+Propiedad::setDB($db);
+
+
 

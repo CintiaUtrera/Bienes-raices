@@ -5,7 +5,9 @@ namespace App;
 class Propiedad{   // funciones adentro de una clase = Metodos
 
     // Base de Datos
-    protected static $db;                     // PROTECTED SE ACCEDE SOLO DENTRO DE LA CLASE
+    protected static $db;  // PROTECTED SE ACCEDE SOLO DENTRO DE LA CLASE
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+
 
     public $id;
     public $titulo;
@@ -17,6 +19,11 @@ class Propiedad{   // funciones adentro de una clase = Metodos
     public $estacionamiento;
     public $creado;
     public $vendedores_id;
+
+    // Definir la conexion a la bd
+    public static function setDB($database){
+        self::$db = $database;    // self se utiliza solo para los metodos estaticos
+    }
 
     public function __construct($args = [])         
     {
@@ -32,8 +39,12 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         $this->vendedores_id = $args['vendedores_id'] ?? '';
     }
 
-    public function guardar(){              // Metodo
+    public function guardar(){ // Metodo
         echo "Guardando en la base de datos";
+
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+        debuguear($atributos);
 
         // INSERTAR EN LA BASE DE DATOS
         $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
@@ -43,8 +54,22 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         debuguear($resultado);
     }
 
-    // Definir la conexion a la bd
-    public static function setDB($database){
-        self::$db = $database;    // self se utiliza solo para los metodos estaticos
+    public function atributos (){   // va a iterar la columnaDB
+        $atributos = [];
+        foreach(self::$columnasDB as $columna){
+            if($columna === 'id') continue;
+            $atributos[$columna] = $this->$columna;
+        }
+        return $atributos;
+    }
+
+    public function sanitizarAtributos(){
+        $atributos = $this->atributos();
+        $sanitizado = [];
+
+        foreach($atributos as $key => $value){
+            $sanitizado[$key]= self::$db->escape_string($value);
+        }
+        return $sanitizado;
     }
 }
