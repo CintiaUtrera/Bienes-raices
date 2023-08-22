@@ -51,7 +51,7 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
         //echo $query;
         $resultado = self::$db->query($query);
-        debuguear($resultado);
+        
     }
 
     public function atributos (){   // va a iterar la columnaDB
