@@ -32,7 +32,7 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         $this->id = $args['id'] ?? '';
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
-        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
@@ -55,7 +55,8 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         $query .= " ') ";
         //echo $query;
         $resultado = self::$db->query($query);
-        debuguear($resultado);
+        
+        return $resultado;
     }
 
 
@@ -71,11 +72,17 @@ class Propiedad{   // funciones adentro de una clase = Metodos
     public function sanitizarAtributos(){
         $atributos = $this->atributos();
         $sanitizado = [];
-
         foreach($atributos as $key => $value){
             $sanitizado[$key]= self::$db->escape_string($value);
         }
         return $sanitizado;
+    }
+    // Subida de archivos 
+    public function setImagen($imagen){
+        // asignar al atributo de imagen el nombre de imagen
+        if($imagen){
+            $this->imagen = $imagen; 
+        }
     }
 
     public static function getErrores(){
@@ -111,17 +118,9 @@ class Propiedad{   // funciones adentro de una clase = Metodos
             self::$errores[]= "Elige un vendedor";
         }
 
-        //if(!$this->imagen['name'] || $this->imagen['error']){                   
-        //    $errores[]= "La Imagen es Obligatoria";
-        //}
-
-        // Validar por tamaño  de Imagen 
-        //$medida= 1000 * 1000;
-
-        //if($this->imagen['size'] > $medida){  
-         //   $errores[] = 'La Imagen es muy pesada'; 
-
-        //}
+        if(!$this->imagen){                   
+            self::$errores[]= "La Imagen es Obligatoria";
+        }
 
         return self::$errores;
     }
