@@ -44,15 +44,18 @@ class Propiedad{   // funciones adentro de una clase = Metodos
 
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
-        debuguear($atributos);
-
+        
         // INSERTAR EN LA BASE DE DATOS
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-        VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
+        $query = " INSERT INTO propiedades ( ";
+        $query .=  join(', ', array_keys($atributos));
+        $query .= " ) VALUES (' "; 
+        $query .= join("', '", array_values($atributos));
+        $query .= " ') ";
         //echo $query;
         $resultado = self::$db->query($query);
         debuguear($resultado);
     }
+
 
     public function atributos (){   // va a iterar la columnaDB
         $atributos = [];
