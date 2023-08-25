@@ -124,4 +124,36 @@ class Propiedad{   // funciones adentro de una clase = Metodos
 
         return self::$errores;
     }
+
+    //lista todas las propiedades
+    public static function all(){
+        $query = "SELECT * FROM propiedades"; // retorna un arreglo asosiativo
+        $resultado =  self::consultarSQL($query);
+        return $resultado;
+
+    }
+
+    public static function consultarSQL($query)  {
+        // Consulta db
+        $resultado = self::$db->query($query);
+        // iterar los resultados
+        $array = [];
+        while($registro = $resultado->fetch_assoc()){  // arreglo asosiativo
+            $array[] = self::crearObjeto($registro); // creando un nuevo metodo que formatea ese arreglo hacia objeto para seguir principios de ActiveRecord
+        }
+        // liberar la memoria
+        $resultado->free();
+        // retornar los resultados
+        return $array;
+    }
+    protected static function crearObjeto($registro){
+        $objeto = new self;
+
+        foreach($registro as $key => $value){
+            if(property_exists($objeto, $key)){
+                $objeto->$key = $value;
+            }
+        }
+        return $objeto;
+    }
 }
