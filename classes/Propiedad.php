@@ -77,8 +77,17 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         }
         return $sanitizado;
     }
+    
     // Subida de archivos 
     public function setImagen($imagen){
+        // Eliminar la imagen previa
+        if($this->id){
+            // comprobar si existe el archivo
+            $existeArchivo= file_exists(CARPETA_IMAGENES . $this->imagen);
+            if($existeArchivo){
+                unlink(CARPETA_IMAGENES . $this->imagen);
+            }
+        }
         // asignar al atributo de imagen el nombre de imagen
         if($imagen){
             $this->imagen = $imagen; 
