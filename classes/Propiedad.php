@@ -125,13 +125,20 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         return self::$errores;
     }
 
-    //lista todas las propiedades
+    //lista todos los registros 
     public static function all(){
         $query = "SELECT * FROM propiedades"; // retorna un arreglo asosiativo
         $resultado =  self::consultarSQL($query);
         return $resultado;
-
     }
+
+    // Busca una registro(propiedad) por su id
+    public static function find($id){
+        $query = "SELECT * FROM propiedades WHERE id = {$id}";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado);  // array_shift: retorna el primer elemento de un arreglo
+        }
+
 
     public static function consultarSQL($query)  {
         // Consulta db
