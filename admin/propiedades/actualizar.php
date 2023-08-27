@@ -23,7 +23,7 @@ estaAutenticado();
     $resultado = mysqli_query($db,  $consulta);
 
     //Arreglo con mensajes de errores
-    $errores =  [];
+    $errores =  Propiedad::getErrores();
 
 
     //Ejecutar el codigo despues  de que el usuario envia el formulario
@@ -33,46 +33,7 @@ estaAutenticado();
 
         $propiedad->sincronizar($args);
 
-        // Asignar files hacia una variable
-        $imagen = $_FILES['imagen'];
-        
-
-        if(!$titulo){
-            $errores[]= "Debes añadir un titulo";
-        }
-
-        if(!$precio){
-            $errores[]= "El Precio es obligatorio";
-        }
-
-        if( strlen($descripcion) < 50 ){
-            $errores[]= "La Descripción es obligatoria y debe tener al menos 50 caracteres";
-        }
-
-        if(!$habitaciones){
-            $errores[]= "El Número de habitaciones es obligatorio";
-        }
-
-        if(!$wc){
-            $errores[]= "El Número de baños es obligatorio";
-        }
-
-        if(!$estacionamiento){
-            $errores[]= "El Número de lugares de Estacionamiento es obligatorio";
-        }
-
-        if(!$vendedores_id){
-            $errores[]= "Elige un vendedor";
-        }
-
-
-        // Validar por tamaño  de Imagen 
-        $medida= 1000 * 1000;
-
-        if($imagen['size'] > $medida){  
-            $errores[] = 'La Imagen es muy pesada'; 
-
-        }
+        $errores = $propiedad->validar();
 
         //Revisar que el array de errores este vacio
         if(empty($errores)){
