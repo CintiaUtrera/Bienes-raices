@@ -29,7 +29,7 @@ class Propiedad{   // funciones adentro de una clase = Metodos
 
     public function __construct($args = [])         
     {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -42,7 +42,7 @@ class Propiedad{   // funciones adentro de una clase = Metodos
     }
 
     public function guardar() {                     
-        if(isset($this->id)){
+        if(!is_null($this->id)){
             // Actualizar
             $this->actualizar();
         } else{
@@ -65,7 +65,12 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         //echo $query;
         $resultado = self::$db->query($query);
         
-        return $resultado;
+        // mensaje de exito
+        if ($resultado){
+            //Redireccionar al Usuario
+            header("Location: ../index.php?resultado=1");
+            }
+        
     }
 
     public function actualizar(){
@@ -121,7 +126,7 @@ class Propiedad{   // funciones adentro de una clase = Metodos
     // Subida de archivos 
     public function setImagen($imagen){
         // Eliminar la imagen previa
-        if(isset($this->id)){
+        if(!is_null($this->id)){
             $this->borrarImagen();
         }
         // asignar al atributo de imagen el nombre de imagen
