@@ -83,13 +83,22 @@ class Propiedad{   // funciones adentro de una clase = Metodos
 
         $resultado = self::$db->query($query);
         if ($resultado){
+            $this->borrarImagen();
             //Redireccionar al Usuario
             header('Location: ../index.php?resultado=2');
             }
         
     }
 
-
+    //Eliminar un registro
+    public function eliminar(){
+        // Eliminar la propiedad
+        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+        if($resultado){
+            header('location:/bienesraices/admin/index.php?resultado=3');
+        }
+    }
 
     public function atributos (){   // va a iterar la columnaDB
         $atributos = [];
@@ -113,15 +122,19 @@ class Propiedad{   // funciones adentro de una clase = Metodos
     public function setImagen($imagen){
         // Eliminar la imagen previa
         if(isset($this->id)){
-            // comprobar si existe el archivo
-            $existeArchivo= file_exists(CARPETA_IMAGENES . $this->imagen);
-            if($existeArchivo){
-                unlink(CARPETA_IMAGENES . $this->imagen);
-            }
+            $this->borrarImagen();
         }
         // asignar al atributo de imagen el nombre de imagen
         if($imagen){
             $this->imagen = $imagen; 
+        }
+    }
+    // Elimina el archivo (imagen)
+    public function  borrarImagen() {
+        // comprobar si existe el archivo
+        $existeArchivo= file_exists(CARPETA_IMAGENES . $this->imagen);
+        if($existeArchivo){
+            unlink(CARPETA_IMAGENES . $this->imagen);
         }
     }
 
@@ -193,9 +206,9 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         // retornar los resultados
         return $array;
     }
+
     protected static function crearObjeto($registro){
         $objeto = new self;
-
         foreach($registro as $key => $value){
             if(property_exists($objeto, $key)){
                 $objeto->$key = $value;
