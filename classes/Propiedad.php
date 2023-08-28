@@ -41,9 +41,18 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         $this->vendedores_id = $args['vendedores_id'] ?? 1;
     }
 
-    public function guardar(){ // Metodo
-        echo "Guardando en la base de datos";
+    public function guardar() {                     
+        if(isset($this->id)){
+            // Actualizar
+            $this->actualizar();
+        } else{
+            // creando un nuevo registro
+            $this->crear();
+        }
+    }
 
+    public function crear(){ // Metodo
+        echo "Guardando en la base de datos";
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
         
@@ -58,6 +67,28 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         
         return $resultado;
     }
+
+    public function actualizar(){
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+        $valores = [];
+        foreach($atributos as $key => $value){
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        $query = "UPDATE propiedades SET ";
+        $query .= join(', ', $valores); 
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";     
+        $query .= " LIMIT 1";
+
+        $resultado = self::$db->query($query);
+        if ($resultado){
+            //Redireccionar al Usuario
+            header('Location: ../index.php?resultado=2');
+            }
+        
+    }
+
 
 
     public function atributos (){   // va a iterar la columnaDB
@@ -77,11 +108,11 @@ class Propiedad{   // funciones adentro de una clase = Metodos
         }
         return $sanitizado;
     }
-    
+
     // Subida de archivos 
     public function setImagen($imagen){
         // Eliminar la imagen previa
-        if($this->id){
+        if(isset($this->id)){
             // comprobar si existe el archivo
             $existeArchivo= file_exists(CARPETA_IMAGENES . $this->imagen);
             if($existeArchivo){

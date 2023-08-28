@@ -36,7 +36,7 @@ estaAutenticado();
         // Validacion
         $errores = $propiedad->validar();
 
-        
+
         //Generar un nombre único
         $nombreImagen = md5( uniqid(rand(), true)) . ".jpg";
         // Subida de archivos
@@ -48,29 +48,12 @@ estaAutenticado();
 
         //Revisar que el array de errores este vacio
         if(empty($errores)){
-            
-
-            exit;
-
-            // INSERTAR EN LA BASE DE DATOS
-            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";     
-
-            //echo $query;
-
-            $resultado = mysqli_query($db, $query);
-
-        if ($resultado){
-            //Redireccionar al Usuario
-            header('Location: ../index.php?resultado=2');
-            }
+            //almacenar la imagen
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
+            $propiedad->guardar();
         }
+}
 
-    }
-
-        
-
-
-    
     incluirTemplate('header');
 ?>
 
