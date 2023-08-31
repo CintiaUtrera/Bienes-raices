@@ -6,42 +6,20 @@ class ActiveRecord{
 
     // Base de Datos
     protected static $db;  // PROTECTED SE ACCEDE SOLO DENTRO DE LA CLASE
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+    protected static $columnasDB = [];
     protected static $tabla = '';
 
 
     // Errores
     protected static $errores = [];
 
-    public $id;
-    public $titulo;
-    public $precio;
-    public $imagen;
-    public $descripcion;
-    public $habitaciones;
-    public $wc;
-    public $estacionamiento;
-    public $creado;
-    public $vendedores_id;
 
     // Definir la conexion a la bd
     public static function setDB($database){
         self::$db = $database;    // self se utiliza solo para los metodos estaticos
     }
 
-    public function __construct($args = [])         
-    {
-        $this->id = $args['id'] ?? null;
-        $this->titulo = $args['titulo'] ?? '';
-        $this->precio = $args['precio'] ?? '';
-        $this->imagen = $args['imagen'] ?? '';
-        $this->descripcion = $args['descripcion'] ?? '';
-        $this->habitaciones = $args['habitaciones'] ?? '';
-        $this->wc = $args['wc'] ?? '';
-        $this->estacionamiento = $args['estacionamiento'] ?? '';
-        $this->creado = date('Y/m/d');
-        $this->vendedores_id = $args['vendedores_id'] ?? 1;
-    }
+    
 
     public function guardar() {                     
         if(!is_null($this->id)){
@@ -215,7 +193,7 @@ class ActiveRecord{
     }
 
     protected static function crearObjeto($registro){
-        $objeto = new self;
+        $objeto = new static;
         foreach($registro as $key => $value){
             if(property_exists($objeto, $key)){
                 $objeto->$key = $value;
