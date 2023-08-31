@@ -3,11 +3,12 @@
     estaAutenticado();
     
     use App\Propiedad;
+    use App\Vendedor;
     
 
-    //mImplementar un metodo para obtener las propiedades 
+    //Implementar un metodo para obtener las propiedades 
     $propiedades = Propiedad::all();
-    
+    $vendedores = Vendedor::all();
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
@@ -24,7 +25,6 @@
     }
 
     // Incluye un Template
-    
     incluirTemplate('header');
 ?>
 

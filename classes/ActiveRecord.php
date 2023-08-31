@@ -7,6 +7,8 @@ class ActiveRecord{
     // Base de Datos
     protected static $db;  // PROTECTED SE ACCEDE SOLO DENTRO DE LA CLASE
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+    protected static $tabla = '';
+
 
     // Errores
     protected static $errores = [];
@@ -57,7 +59,7 @@ class ActiveRecord{
         $atributos = $this->sanitizarAtributos();
         
         // INSERTAR EN LA BASE DE DATOS
-        $query = " INSERT INTO propiedades ( ";
+        $query = " INSERT INTO " . static::$tabla . " ( ";
         $query .=  join(', ', array_keys($atributos));
         $query .= " ) VALUES (' "; 
         $query .= join("', '", array_values($atributos));
@@ -81,7 +83,7 @@ class ActiveRecord{
             $valores[] = "{$key}='{$value}'";
         }
 
-        $query = "UPDATE propiedades SET ";
+        $query = "UPDATE " . static::$tabla . " SET ";
         $query .= join(', ', $valores); 
         $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";     
         $query .= " LIMIT 1";
@@ -97,8 +99,8 @@ class ActiveRecord{
 
     //Eliminar un registro
     public function eliminar(){
-        // Eliminar la propiedad
-        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        // Eliminar el registro
+        $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
         $resultado = self::$db->query($query);
         if($resultado){
             header('location:/bienesraices/admin/index.php?resultado=3');
@@ -185,14 +187,14 @@ class ActiveRecord{
 
     //lista todos los registros 
     public static function all(){
-        $query = "SELECT * FROM propiedades"; // retorna un arreglo asosiativo
+        $query = "SELECT * FROM " . static::$tabla; // retorna un arreglo asosiativo
         $resultado =  self::consultarSQL($query);
         return $resultado;
     }
 
     // Busca una registro(propiedad) por su id
     public static function find($id){
-        $query = "SELECT * FROM propiedades WHERE id = {$id}";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id = {$id}";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado);  // array_shift: retorna el primer elemento de un arreglo
         }
