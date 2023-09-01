@@ -18,6 +18,18 @@
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if($id){
+            $tipo = $_POST['tipo'];
+            if(validarTipoContenido($tipo)){
+                // compara lo que vamos a eliminar
+                if($tipo === 'vendedor'){
+                    $vendedor = Vendedor::find($id);
+                    $vendedor->eliminar();
+                }else if ($tipo === 'propiedad'){
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                }
+            }
+
             $propiedad = Propiedad::find($id);
             $propiedad->eliminar();
         }
@@ -62,6 +74,7 @@
                     <td>
                         <form method="POST">
                             <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>" >
+                            <input type="hidden" name="tipo" value="propiedad" >
                             <input type="submit" class="boton-rojo-block" value="Eliminar" >
                         </form>
                         
@@ -94,6 +107,7 @@
                     <td>
                         <form method="POST">
                             <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>" >
+                            <input type="hidden" name="tipo" value="vendedor" >
                             <input type="submit" class="boton-rojo-block" value="Eliminar" >
                         </form>
                         
