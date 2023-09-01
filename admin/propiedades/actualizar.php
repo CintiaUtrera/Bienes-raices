@@ -1,9 +1,11 @@
 <?php
 
 use App\Propiedad;
+use App\Vendedor;
 use Intervention\Image\ImageManagerStatic as Image;
 
 require '../../includes/app.php';
+
 estaAutenticado();
 
     // Validar la URL por ID valido
@@ -18,10 +20,8 @@ estaAutenticado();
     $propiedad = Propiedad::find($id);    // :: llama al metodo 
     
 
-
-    //Consultar para obtener los vendedores 
-    $consulta = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db,  $consulta);
+    //consulta para obtener todos los vendedores
+    $vendedores = Vendedor::all();
 
     //Arreglo con mensajes de errores
     $errores =  Propiedad::getErrores();
@@ -48,8 +48,10 @@ estaAutenticado();
 
         //Revisar que el array de errores este vacio
         if(empty($errores)){
-            //almacenar la imagen
-            $image->save(CARPETA_IMAGENES . $nombreImagen);
+            if($_FILES['propiedad']['tmp_name']['imagen']){
+                //almacenar la imagen
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
+            }
             $propiedad->guardar();
         }
 }

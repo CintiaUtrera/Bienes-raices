@@ -87,7 +87,7 @@ class ActiveRecord{
 
     public function atributos (){   // va a iterar la columnaDB
         $atributos = [];
-        foreach(self::$columnasDB as $columna){
+        foreach(static::$columnasDB as $columna){ // metodo static 
             if($columna === 'id') continue;
             $atributos[$columna] = $this->$columna;
         }
@@ -124,7 +124,6 @@ class ActiveRecord{
     }
 
     public static function getErrores(){
-        
         return static::$errores;
     }
 
@@ -154,7 +153,7 @@ class ActiveRecord{
         // iterar los resultados
         $array = [];
         while($registro = $resultado->fetch_assoc()){  // arreglo asosiativo
-            $array[] = self::crearObjeto($registro); // creando un nuevo metodo que formatea ese arreglo hacia objeto para seguir principios de ActiveRecord
+            $array[] = static::crearObjeto($registro); // creando un nuevo metodo que formatea ese arreglo hacia objeto para seguir principios de ActiveRecord
         }
         // liberar la memoria
         $resultado->free();
