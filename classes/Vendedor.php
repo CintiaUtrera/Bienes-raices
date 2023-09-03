@@ -18,4 +18,17 @@ class Vendedor extends ActiveRecord {   // Heredando de la clase activerecord
         $this->apellido = $args['apellido'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
     }
+
+    public function validar(){
+        if(!$this->nombre){
+            self::$errores[] = "El Nombres es Obligatorio";
+        }
+        if(!$this->apellido){
+            self::$errores[] = "El Apellido es Obligatorio";
+        }
+        if(!$this->telefono){
+            self::$errores[] = "El Teléfono es Obligatorio";
+        }
+        return self::$errores;
+    }
 }

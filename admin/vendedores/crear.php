@@ -12,7 +12,14 @@ $vendedor = new Vendedor;
 
     //Ejecutar el codigo despues  de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    
+        // crear una nueva instancia
+        $vendedor = new Vendedor($_POST['vendedor']);
+        //validar que no haya campos vacios
+        $errores = $vendedor->validar();
+        // No hay errores
+        if(empty($errores)){
+            $vendedor->guardar();
+        }
     }
 
     incluirTemplate('header');
@@ -31,7 +38,7 @@ $vendedor = new Vendedor;
         <?php endforeach; ?>
 
 
-        <form class="formulario" method="POST" action="/admin/vendedores/crear.php">
+        <form class="formulario" method="POST" action="crear.php">
             <?php include '../../includes/templates/formularios_vendedores.php'; ?>
 
             <input type="submit" value="Registrar Vendedor" class="boton boton-verde">

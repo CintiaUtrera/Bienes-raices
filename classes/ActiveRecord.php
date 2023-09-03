@@ -32,7 +32,6 @@ class ActiveRecord{
     }
 
     public function crear(){ // Metodo
-        echo "Guardando en la base de datos";
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
         
