@@ -29,6 +29,9 @@ class Vendedor extends ActiveRecord {   // Heredando de la clase activerecord
         if(!$this->telefono){
             self::$errores[] = "El Teléfono es Obligatorio";
         }
+        if(!preg_match('/[0-9]{10}/', $this->telefono)){ // preg_match = expresiones regulares para validar
+            self::$errores[] = "Formato no Válido";
+        }
         return self::$errores;
     }
 }
