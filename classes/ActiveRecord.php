@@ -9,6 +9,10 @@ class ActiveRecord{
     protected static $columnasDB = [];
     protected static $tabla = '';
 
+    // Visibilidad de propiedades de la clase
+    public $id;
+    public $imagen;
+
 
     // Errores
     protected static $errores = [];
@@ -118,6 +122,7 @@ class ActiveRecord{
         // comprobar si existe el archivo
         $existeArchivo= file_exists(CARPETA_IMAGENES . $this->imagen);
         if($existeArchivo){
+            chmod(CARPETA_IMAGENES . $this->imagen, 0777);
             unlink(CARPETA_IMAGENES . $this->imagen);
         }
     }

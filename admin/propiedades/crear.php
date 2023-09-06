@@ -25,7 +25,7 @@
         //SUBIDA DE ARCHIVOS
         
         //Generar un nombre único
-        $nombreImagen = md5( uniqid(rand(), true)) . ".jpg";
+        $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
 
         // SETEAR la imagen
         // Realiza un resize a la imagen con intervention 
